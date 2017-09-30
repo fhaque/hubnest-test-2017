@@ -3,11 +3,6 @@ import ReactDOM from 'react-dom';
 
 import services from './services.js';
 
-import DeleteBtn from './components/DeleteBtn.react.js';
-import CardHeader from './components/CardHeader.react.js';
-import AddNewPhoneForm from './components/AddNewPhoneForm.react.js';
-import PhoneList from './components/PhoneList.react.js';
-
 import Card from './components/Card.react.js';
 import AddNewPersonForm from './components/AddNewPersonForm.react.js';
 
@@ -119,7 +114,7 @@ class App extends React.Component {
                     const transformedPerson = Object.assign({}, person);
                     transformedPerson.phoneData = this.phoneDataTransformToArray(transformedPerson.phoneData);
 
-                    return <Card 
+                    return <Card key={transformedPerson.id}
                         person={transformedPerson}
                         handleCardDeletion={() => this.handleCardDeletion(index)}
                         handlePhoneNumDeletion={(data) => this.handlePhoneNumDeletion(index, data)}
