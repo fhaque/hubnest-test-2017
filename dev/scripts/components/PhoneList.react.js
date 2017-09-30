@@ -13,7 +13,8 @@ const PhoneList = (props) => {
         //label: Such as Home, Work, Cell
         //numArray: array of phone numbers
         //handleClick: for the delete button
-        const { label, numArray } = props;
+    const { label, numArray } = props;
+
     return (
         <div>
             <p>{label}</p>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PhoneList        from './PhoneList.react.js';
-import addNewPhoneForm  from './addNewPhoneForm.react.js';
+import AddNewPhoneForm  from './AddNewPhoneForm.react.js';
 
 class CardBody extends React.Component {
     //props:
@@ -11,12 +11,12 @@ class CardBody extends React.Component {
             //ie. {"home": "123.123.1234"}
         //handleSubmit: that takes argument of {phoneNum: string, phoneType: string}
     render() {
-        const { handleClick, handleSubmit } = this.props;
+        const { handleClick, handleSubmit, phoneData } = this.props;
 
         return (
             <div>
                 <ul>
-                    {phoneData.map( (phone) => 
+                    {phoneData && phoneData.map( (phone) => 
                         <li key={phone.label}>
                             <PhoneList 
                                 label={phone.label} 
@@ -24,9 +24,9 @@ class CardBody extends React.Component {
                                 handleClick={handleClick} 
                             />
                         </li>
-                    )}
+                     )}
                 </ul>
-                <addNewPhoneForm handleSubmit={handleSubmit} />
+                <AddNewPhoneForm handleSubmit={handleSubmit} />
             </div>
         );
     }
