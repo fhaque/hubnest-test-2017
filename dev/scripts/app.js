@@ -7,23 +7,13 @@ import AddNewPhoneForm from './components/AddNewPhoneForm.react.js';
 import PhoneList from './components/PhoneList.react.js';
 
 import Card from './components/Card.react.js';
+import AddNewPersonForm from './components/AddNewPersonForm.react.js';
 
 class App extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            // persons: [
-            //     {
-            //         name: "Bob",
-            //         phoneData: [{label: "home", numArray: ["12","31413","123123"]},{label: "cell", numArray: ["12344","13","123123"]} ],
-            //     },
-            //     {
-            //         name: "Alice",
-            //         phoneData: [{label: "home", numArray: ["12","31413","123123"]}],
-            //     },
-            // ],
-
 
             persons: [
                 {
@@ -45,6 +35,7 @@ class App extends React.Component {
         this.handleAddPhoneNum = this.handleAddPhoneNum.bind(this);
         this.handlePhoneNumDeletion = this.handlePhoneNumDeletion.bind(this);
         this.handleCardDeletion = this.handleCardDeletion.bind(this);
+        this.handleAddPerson = this.handleAddPerson.bind(this);
 
     }
 
@@ -75,16 +66,6 @@ class App extends React.Component {
 
         const { phoneNum, phoneType } = data;
 
-        //find the phone number and remove it
-        // phoneData.forEach( (phone) => {
-        //     if (phone.label === phoneType) {
-        //         const index = phone.numArray.indexOf(phoneNum);
-        //         phone.numArray.splice(index, 1);
-        //     }
-        // });
-
-        console.log(persons,person,phoneData);
-
         const phoneIndex = phoneData[phoneType].indexOf(phoneNum);
         phoneData[phoneType].splice(phoneIndex,1);
 
@@ -101,12 +82,6 @@ class App extends React.Component {
 
         const { phoneNum, phoneType } = data;
 
-        // phoneData.forEach( (phone) => {
-        //     if (phone.label === phoneType) {
-        //         phone.numArray.push(phoneNum);
-        //     }
-        // });
-
         if (phoneType in phoneData) {
             phoneData[phoneType].push(phoneNum);
         } else {
@@ -114,6 +89,21 @@ class App extends React.Component {
         }
 
         this.setState({ persons });
+    }
+
+    handleAddPerson(name) {
+        const { persons } = Object.assign({} ,this.state);
+
+        persons.push(this.createPersonObj(name));
+
+        this.setState({ persons });
+    }
+
+    createPersonObj(name) {
+        return {
+            name: name,
+            phoneData: {},
+        }
     }
 
     phoneDataTransformToArray(phoneData) {
@@ -130,19 +120,15 @@ class App extends React.Component {
     }
 
     render() {
-        const  state  = Object.assign({}, this.state);
-        const  persons  = state.persons; 
-
-        console.log("From render", persons, this.state.persons);
+        const { persons } = Object.assign({}, this.state);
 
         return (
             <div>
                 {persons.map( (person, index) => {
                     //transform the phone data for rendering
-                    {/* person.phoneData = this.phoneDataTransformToArray(person.phoneData); */}
                     const transformedPerson = Object.assign({}, person);
-                    transformedPerson.phoneData = {b: "cheese"};
-                    console.log(transformedPerson);
+                    transformedPerson.phoneData = this.phoneDataTransformToArray(transformedPerson.phoneData);
+
                     return <Card 
                         person={transformedPerson}
                         handleCardDeletion={() => this.handleCardDeletion(index)}
@@ -150,6 +136,8 @@ class App extends React.Component {
                         handleAddPhoneNum={(data) => this.handleAddPhoneNum(index, data)}
                     />
                 })}
+
+                <AddNewPersonForm handleSubmit={this.handleAddPerson} />
             </div>
         )
     }
