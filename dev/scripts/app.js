@@ -1,37 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Title extends React.Component {
-    render() {
-        return (
-            <h1>Hello, {this.props.name}!</h1>
-        )
-    }
-}
-
-class Paragraph extends React.Component {
-    render() {
-        return (
-            <p>Hello, {this.props.content}!</p>
-        )
-    }
-}
-
-class SearchBar extends React.Component {
-    render() {
-        return (
-            <input type="text" placeholder="Enter your search term" name="" />
-        )
-    }
-}
+import DeleteBtn from './components/DeleteBtn.react.js';
+import CardHeader from './components/CardHeader.react.js';
+import AddNewPhoneForm from './components/AddNewPhoneForm.react.js';
+import PhoneList from './components/PhoneList.react.js'
 
 class App extends React.Component {
+    handleClick(e) {
+        console.log('btn working');
+    }
+
+    handleSubmit(data) {
+        console.log(data);
+    }
+
     render() {
         return (
             <div>
-                <Title name="Bob" />
-                <Paragraph content="Welcome back, Bob. Nice to see you" />
-                <SearchBar />
+                <DeleteBtn handleClick={this.handleClick} />
+
+                <CardHeader name="Bob" handleClick={this.handleClick} />
+
+                <AddNewPhoneForm handleSubmit={this.handleSubmit} />
+
+                <PhoneList label="HOME" numArray={['123','43242']} handleClick={this.handleClick} />
             </div>
         )
     }
