@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import services from './services.js';
+
 import DeleteBtn from './components/DeleteBtn.react.js';
 import CardHeader from './components/CardHeader.react.js';
 import AddNewPhoneForm from './components/AddNewPhoneForm.react.js';
@@ -37,6 +39,8 @@ class App extends React.Component {
         this.handleCardDeletion = this.handleCardDeletion.bind(this);
         this.handleAddPerson = this.handleAddPerson.bind(this);
 
+        this.dBListenHandle = this.dBListenHandle.bind(this);
+
     }
 
     handleClick(e) {
@@ -52,9 +56,12 @@ class App extends React.Component {
 
         const { persons } = Object.assign({} ,this.state);
 
-        persons.splice(index, 1);
+        // persons.splice(index, 1);
 
-        this.setState({ persons });
+        services.removePerson(persons[index]);
+
+        // this.setState({ persons });
+
     }
 
     handlePhoneNumDeletion(index, data) {
@@ -69,7 +76,9 @@ class App extends React.Component {
         const phoneIndex = phoneData[phoneType].indexOf(phoneNum);
         phoneData[phoneType].splice(phoneIndex,1);
 
-        this.setState({ persons });
+        // this.setState({ persons });
+
+        services.updatePerson(person);
 
     }
 
@@ -88,15 +97,19 @@ class App extends React.Component {
             phoneData[phoneType] = [phoneNum];
         }
 
-        this.setState({ persons });
+        // this.setState({ persons });
+
+        services.updatePerson(person);
     }
 
     handleAddPerson(name) {
         const { persons } = Object.assign({} ,this.state);
 
-        persons.push(this.createPersonObj(name));
+        // persons.push(this.createPersonObj(name));
 
-        this.setState({ persons });
+        // this.setState({ persons });
+
+        services.addPerson( this.createPersonObj(name) );
     }
 
     createPersonObj(name) {
@@ -117,6 +130,32 @@ class App extends React.Component {
         }
 
         return phoneDataArray;
+    }
+
+    componentDidMount() {
+        services.addDBListenHandle(this.dBListenHandle);
+    }
+
+    dBListenHandle(persons) {
+
+        console.log(persons);
+        // this.setState({ persons });
+
+        const newPersons = [];
+        
+        for (let key in persons) {
+            const person = persons[key];
+            person.id = key;
+            if ( !('phoneData' in person ) ) {
+                person.phoneData = {};
+            }
+            newPersons.push(person);
+        }
+
+        console.log(newPersons);
+
+        this.setState({ persons: newPersons });
+
     }
 
     render() {
