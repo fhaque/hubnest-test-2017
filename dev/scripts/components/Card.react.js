@@ -11,7 +11,7 @@ const Card = (props) => {
             //  - {label:"home", numArray: ['123.123.1234','321.321.3234']}
         //handleCardDeletion
         //handlePhoneNumDeletion
-        //handleAddPhoneNum
+        //handleAddPhoneNum: that takes argument of {phoneNum: string, phoneType: string}
 
     const { person, handleCardDeletion, handlePhoneNumDeletion, handleAddPhoneNum } = props;
 

@@ -7,8 +7,8 @@ class CardBody extends React.Component {
     //props:
         //phoneData: array of objects of form:
             // - {label:"home", numArray: ['123.123.1234','321.321.3234']}
-        //handleClick: that takes argument of {phoneType: phoneNum }
-            //ie. {"home": "123.123.1234"}
+        //handleClick: that takes argument of {phoneType: string, phoneNum: string }
+            //ie. {phoneType: "home", phoneNum: "123.123.1234"}
         //handleSubmit: that takes argument of {phoneNum: string, phoneType: string}
     render() {
         const { handleClick, handleSubmit, phoneData } = this.props;
