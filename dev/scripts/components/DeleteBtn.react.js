@@ -6,9 +6,9 @@ const DeleteBtn = (props) => {
     const { handleClick } = props;
 
     return (
-        <div>
-            <button onClick={handleClick}>X</button>
-            <p>delete</p>
+        <div className="DeleteBtn">
+            <button className="DeleteBtn__btn" onClick={handleClick}>X</button>
+            <p className="DeleteBtn__label">delete</p>
         </div>
     );
 }

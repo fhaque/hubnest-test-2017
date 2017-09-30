@@ -16,11 +16,11 @@ const Card = (props) => {
     const { person, handleCardDeletion, handlePhoneNumDeletion, handleAddPhoneNum } = props;
 
     return (
-        <article>
-            <header>
+        <article className="Card">
+            <header className="Card__header">
                 <CardHeader name={person.name} handleClick={handleCardDeletion}/>
             </header>
-            <section>
+            <section className="Card__body">
                 <CardBody 
                     phoneData={person.phoneData} 
                     handleClick={handlePhoneNumDeletion}

@@ -17,13 +17,15 @@ const PhoneList = (props) => {
     const { label, numArray } = props;
 
     return (
-        <div>
-            <p>{label}</p>
-            <ul>
+        <div className="PhoneList">
+            <p className="PhoneList__label">{label}</p>
+            <ul className="PhoneList__list">
                 {numArray.map( (num) => 
-                    <li key={num}>
-                        <p>{num}</p>
-                        <DeleteBtn handleClick={(e) => handleClick(e, { phoneType: label,  phoneNum: num }, props.handleClick)} />
+                    <li key={num} className="PhoneList__item">
+                        <p className="PhoneList__itemValue">{num}</p>
+                        <div className="PhoneList__btn">
+                            <DeleteBtn handleClick={(e) => handleClick(e, { phoneType: label,  phoneNum: num }, props.handleClick)} />
+                        </div>
                     </li>
                 )}
             </ul>

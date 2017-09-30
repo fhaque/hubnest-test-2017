@@ -14,10 +14,10 @@ class CardBody extends React.Component {
         const { handleClick, handleSubmit, phoneData } = this.props;
 
         return (
-            <div>
-                <ul>
+            <div className="CardBody">
+                <ul className="CardBody__list">
                     {phoneData && phoneData.map( (phone) => 
-                        <li key={phone.label}>
+                        <li className="CardBody__item" key={phone.label}>
                             <PhoneList 
                                 label={phone.label} 
                                 numArray={phone.numArray}
@@ -26,7 +26,9 @@ class CardBody extends React.Component {
                         </li>
                      )}
                 </ul>
-                <AddNewPhoneForm handleSubmit={handleSubmit} />
+                <div className="CardBody__form">
+                    <AddNewPhoneForm handleSubmit={handleSubmit} />
+                </div>
             </div>
         );
     }

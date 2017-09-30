@@ -30,12 +30,12 @@ class AddNewPersonForm extends React.Component {
         const { name } = this.state;
 
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    <span>Add New Person</span>
-                    <input type="text" name="name" value={name} onChange={this.handleChange}/>
+            <form className="AddNewPersonForm" onSubmit={this.handleSubmit}>
+                <label className="AddNewPersonForm__label">
+                    <span className="hidden">Add New Person</span>
+                    <input className="AddNewPersonForm__input" type="text" name="name" value={name} onChange={this.handleChange}/>
                 </label>
-                <input type="submit" value="Add"/>
+                <input className="AddNewPersonForm__submit" type="submit" value="Add" required />
             </form>
         );
     }

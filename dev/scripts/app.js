@@ -16,22 +16,7 @@ class App extends React.Component {
         super();
 
         this.state = {
-
-            persons: [
-                {
-                    name: "Bob",
-                    phoneData: {
-                        "home" : ["12","31413","123123"],
-                        "cell": ["12344","13","123123"]
-                    },
-                },
-                {
-                    name: "Alice",
-                    phoneData: {
-                        "home" : ["12334234234","3141233","12323123"],
-                    },
-                },
-            ],
+            persons: []
         }
 
         this.handleAddPhoneNum = this.handleAddPhoneNum.bind(this);
@@ -43,30 +28,13 @@ class App extends React.Component {
 
     }
 
-    handleClick(e) {
-        console.log('btn working');
-    }
-
-    handleSubmit(data) {
-        console.log(data);
-    }
-
     handleCardDeletion(index) {
-        console.log("Card Deletion Handle");
-
         const { persons } = Object.assign({} ,this.state);
 
-        // persons.splice(index, 1);
-
         services.removePerson(persons[index]);
-
-        // this.setState({ persons });
-
     }
 
     handlePhoneNumDeletion(index, data) {
-        console.log("Phone Num Deletion Handle");
-
         const { persons } = Object.assign({} ,this.state);
         const person = persons[index];
         const phoneData = person.phoneData;
@@ -74,17 +42,13 @@ class App extends React.Component {
         const { phoneNum, phoneType } = data;
 
         const phoneIndex = phoneData[phoneType].indexOf(phoneNum);
+        
         phoneData[phoneType].splice(phoneIndex,1);
 
-        // this.setState({ persons });
-
         services.updatePerson(person);
-
     }
 
     handleAddPhoneNum(index, data) {
-        console.log("Add Phone Num handle");
-
         const { persons } = Object.assign({} ,this.state);
         const person = persons[index];
         const phoneData = person.phoneData;
@@ -97,17 +61,11 @@ class App extends React.Component {
             phoneData[phoneType] = [phoneNum];
         }
 
-        // this.setState({ persons });
-
         services.updatePerson(person);
     }
 
     handleAddPerson(name) {
         const { persons } = Object.assign({} ,this.state);
-
-        // persons.push(this.createPersonObj(name));
-
-        // this.setState({ persons });
 
         services.addPerson( this.createPersonObj(name) );
     }
@@ -132,15 +90,7 @@ class App extends React.Component {
         return phoneDataArray;
     }
 
-    componentDidMount() {
-        services.addDBListenHandle(this.dBListenHandle);
-    }
-
     dBListenHandle(persons) {
-
-        console.log(persons);
-        // this.setState({ persons });
-
         const newPersons = [];
         
         for (let key in persons) {
@@ -152,17 +102,18 @@ class App extends React.Component {
             newPersons.push(person);
         }
 
-        console.log(newPersons);
-
         this.setState({ persons: newPersons });
+    }
 
+    componentDidMount() {
+        services.addDBListenHandle(this.dBListenHandle);
     }
 
     render() {
         const { persons } = Object.assign({}, this.state);
 
         return (
-            <div>
+            <div className="wrapper">
                 {persons.map( (person, index) => {
                     //transform the phone data for rendering
                     const transformedPerson = Object.assign({}, person);

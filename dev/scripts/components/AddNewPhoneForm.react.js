@@ -37,20 +37,20 @@ class AddNewPhoneForm extends React.Component {
         const { phoneNum, phoneType } = this.state;
 
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    <span>Phone Number Type</span>
-                    <select name="phoneType" value={phoneType} onChange={this.handleChange}>
+            <form className="AddNewPhoneForm" onSubmit={this.handleSubmit}>
+                <label className="AddNewPhoneForm__selectContainer">
+                    <span className="hidden">Phone Number Type</span>
+                    <select className="AddNewPhoneForm__select" name="phoneType" value={phoneType} onChange={this.handleChange}>
                         <option value="home">Home</option>
                         <option value="work">Work</option>
                         <option value="cell">Cell</option>
                     </select>
                 </label>
-                <label>
-                    <span>Phone Number</span>
-                    <input type="text" name="phoneNum" value={phoneNum} placeholder="555.555.5555" onChange={this.handleChange}/>
+                <label className="AddNewPhoneForm__inputContainer">
+                    <span className="hidden">Phone Number</span>
+                    <input className="AddNewPhoneForm__input" type="text" name="phoneNum" value={phoneNum} placeholder="555.555.5555" pattern="^\d{3}.\d{3}.\d{4}$" onChange={this.handleChange} required />
                 </label>
-                <input type="submit" value="Submit"/>
+                <input className="AddNewPhoneForm__submit" type="submit" value="Submit"/>
             </form>
         );
     }
