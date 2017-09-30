@@ -21,7 +21,7 @@ const PhoneList = (props) => {
                 {numArray.map( (num) => 
                     <li key={num}>
                         <p>{num}</p>
-                        <DeleteBtn handleClick={(e) => handleClick(e, num, props.handleClick)} />
+                        <DeleteBtn handleClick={(e) => handleClick(e, { [label]: num }, props.handleClick)} />
                     </li>
                 )}
             </ul>
